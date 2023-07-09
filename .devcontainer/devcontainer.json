@@ -23,5 +23,16 @@
     "staticcheck": "go install honnef.co/go/tools/cmd/staticcheck@latest",
     "goimports": "go install golang.org/x/tools/cmd/goimports@latest",
     "pre-commit": "pre-commit install --install-hooks -t pre-commit -t commit-msg"
-  }
+  },
+  "containerEnv": {
+    "CPUS": "1",
+    "DISK_SIZE": "30",
+    "MACHINE_ID": "some-machine-id",
+    "MACHINE_FOLDER": "/home/vscode/.ssh",
+    "MEMORY": "1G",
+    "MULTIPASS_CMD": "/home/vscode/multipass"
+  },
+  "mounts": [
+    "source=/snap/bin/multipass,target=/home/vscode/multipass,type=bind,consistency=cached"
+  ]
 }

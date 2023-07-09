@@ -16,8 +16,10 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
+	"context"
 
+	"github.com/mrsimonemms/devpod-provider-multipass/pkg/multipass"
+	"github.com/mrsimonemms/devpod-provider-multipass/pkg/options"
 	"github.com/spf13/cobra"
 )
 
@@ -25,9 +27,19 @@ import (
 var createCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create an instance",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("create called")
-	},
+	RunE:  createOrStartServer,
+}
+
+func createOrStartServer(cmd *cobra.Command, args []string) error {
+	cfg, err := options.FromEnv(false)
+	if err != nil {
+		return err
+	}
+
+	ctx := context.Background()
+	m := multipass.New(cfg)
+
+	return m.Create(ctx)
 }
 
 func init() {

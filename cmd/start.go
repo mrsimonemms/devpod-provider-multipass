@@ -16,8 +16,6 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -25,9 +23,7 @@ import (
 var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start an instance",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("start called")
-	},
+	RunE:  createOrStartServer,
 }
 
 func init() {
